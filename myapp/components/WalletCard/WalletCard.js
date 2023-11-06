@@ -5,7 +5,7 @@ import React from 'react'
 const WalletCard = ({wallet: {title, desc, imageUrl, _id}}) => {
   return (
    <Link
-    href={`/wallet/`}
+    href={`/wallet/${_id}`}
    >
     <img 
     src={imageUrl}
