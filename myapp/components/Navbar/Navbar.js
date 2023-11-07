@@ -12,13 +12,8 @@ import { clearCart } from '@/redux/cartSlice'; // Import the clearCart action
 const Navbar = () => {
     const { data: session } = useSession()
     const wallets = useSelector((state) => state.cart.wallets)
-    const dispatch = useDispatch();
 
-    const handleClearCart = () => {
-      // Dispatch the action to clear the cart
-      dispatch(clearCart());
-    };
-  
+ 
   return (
     <header className='px-4 py-12'>
         <div className='max-w-screen-xl mx-auto flex justify-between'>
@@ -40,7 +35,6 @@ const Navbar = () => {
                      <button
                       onClick={() => {
                         signOut();
-                        handleClearCart();
                       }}
                     >
                       Logout
