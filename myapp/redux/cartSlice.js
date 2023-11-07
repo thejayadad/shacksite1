@@ -19,10 +19,13 @@ export const cartSlice = createSlice({
         },
         removeWallet: (state, action) => {
             state.wallets = state.wallets.filter((wallet) => wallet.id !== action.payload.id)
+        },
+        clearCart: (state) => {
+            state.wallets = [];
         }
     }
 })
 
-export const { addWallet, removeWallet } = cartSlice.actions
+export const { addWallet, removeWallet, clearCart } = cartSlice.actions
 
 export default cartSlice.reducer

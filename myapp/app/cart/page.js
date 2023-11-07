@@ -1,7 +1,7 @@
 'use client'
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { removeWallet } from '@/redux/cartSlice';
+import { removeWallet, clearCart } from '@/redux/cartSlice';
 import { loadStripe } from '@stripe/stripe-js'
 
 
@@ -23,6 +23,10 @@ const Cart = () => {
   };
 
   console.log('Total Price:', totalPrice());
+  const handleClearCart = () => {
+    dispatch(clearCart());
+  };
+
 
   const handleCheckout = async () => {
     const lineItems = wallets.map((wallet) => {
@@ -49,9 +53,12 @@ const Cart = () => {
     const data = await res.json()
 
     const stripe = await stripePromise
+    handleClearCart();
 
     await stripe.redirectToCheckout({ sessionId: data.id })
+
 }
+
 
   return (
     <section className='px-4 py-8'>
