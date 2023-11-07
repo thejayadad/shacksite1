@@ -1,11 +1,13 @@
 'use client'
 import { useEffect, useState } from 'react';
-import { useRouter } from 'next/navigation'; // Replace 'next/navigation' with 'next/router'
+import { useRouter } from 'next/navigation';
 import Link from 'next/link';
+import { addWallet } from '@/redux/cartSlice';
+import { useDispatch } from 'react-redux';
 
 const WalletDetail = (ctx) => {
   const router = useRouter();
-
+  const dispatch = useDispatch();
   const [wallet, setWallet] = useState(null);
 
   useEffect(() => {
@@ -25,9 +27,19 @@ const WalletDetail = (ctx) => {
       }
     };
 
-    // Call the fetchWallet function when the component mounts
     fetchWallet();
   }, [ctx.params.id]);
+
+  const handleAddToCart = () => {
+    if (wallet) {
+      dispatch(
+        addWallet({
+          ...wallet,
+          quantity: 1,
+        })
+      );
+    }
+  };
 
   return (
     <section>
@@ -36,8 +48,8 @@ const WalletDetail = (ctx) => {
         <div>
           <h3>Wallet Name: {wallet.title}</h3>
           <p>Balance: {wallet.desc}</p>
-          <p>Balance: {wallet.price}</p>
-
+          <p>Price: {wallet.price}</p>
+          <button onClick={handleAddToCart}>Add To Cart</button>
         </div>
       ) : (
         <p>Loading wallet details...</p>

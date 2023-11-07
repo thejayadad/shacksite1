@@ -4,6 +4,10 @@ import './globals.css'
 import Navbar from '@/components/Navbar/Navbar'
 import Footer from '@/components/Footer/Footer'
 import { SessionProvider } from 'next-auth/react'
+import { Provider } from 'react-redux'
+import { store, persistor } from '@/redux/store'
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,11 +20,15 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>
+      <Provider store={store}>
+      <PersistGate persistor={persistor}>
       <SessionProvider>
       <Navbar />
         {children}
         <Footer />
       </SessionProvider>
+      </PersistGate>
+      </Provider>
       </body>
     </html>
   )
